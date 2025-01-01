@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="reference_culture" copy="record_window">
+		<script>
+			function onStateChanged()
+				super.onStateChanged();
+			end
+		</script>
+		<sheetdata>
+            <anchor_content_top />
+
+			<label_content_column name="backgroundoptions_label">
+				<static textres="backgroundoptions" />
+				<tooltip textres="tooltip_backgroundoptions" />
+			</label_content_column>
+			<number_content_columnw name="backgroundoptions" source="backgroundoptions" />
+			<label_content_column name="hobbyranks_label">
+				<static textres="hobbyranks" />
+				<tooltip textres="tooltip_hobbyranks" />
+			</label_content_column>
+			<number_content_columnw name="hobbyranks" source="hobbyranks" />
+			<label_content_column name="talentpoints_label">
+				<static textres="talentpoints" />
+				<tooltip textres="tooltip_talentpoints" />
+			</label_content_column>
+			<number_content_columnw name="talentpoints" source="talentpoints" />
+        </sheetdata>
+    </windowclass>
+</root>

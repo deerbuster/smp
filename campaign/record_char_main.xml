@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_main">
+		<script>
+			function onInit()
+				self.onXPChanged();
+				self.onCultureChanged();
+				self.onSpeciesChanged();
+				CharManager.refreshNextLevelXP(getDatabaseNode());
+			end
+			function onDrop(x, y, draginfo)
+				if draginfo.isType("shortcut") then
+					local sClass, sRecord = draginfo.getShortcutData();
+					if StringManager.contains({ "reference_class", "reference_race", "reference_subrace", "reference_culture", "reference_feat", }, sClass) then
+						return CharBuildDropManager.addInfoDB(getDatabaseNode(), sClass, sRecord);
+					end
+				end
+			end
+			function onHealthChanged()
+				wounds.setColor(ActorManager5E.getPCSheetWoundColor(getDatabaseNode()));
+			end
+			function onXPChanged()
+				local nLevel = level.getValue();
+				local nXPNeeded = expneeded.getValue();
+				local nXP = exp.getValue();
+				local bShowLevelAdd = ((nLevel == 0) or ((nXPNeeded &gt; 0) and (nXP &gt;= nXPNeeded)));
+				button_classlevel_add.setVisible(bShowLevelAdd);
+			end
+			function onCultureChanged()
+				button_culture_add.setVisible(culture.isEmpty());
+			end
+			function onSpeciesChanged()
+				button_species_add.setVisible(race.isEmpty());
+			end
+		</script>
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<frame_char name="mainframe">
+				<bounds>0,0,-1,-50</bounds>
+			</frame_char>
+			<number_charlevel name="level">
+				<bounds>0,0,0,0</bounds>
+				<invisible />
+				<script>
+					function onValueChanged()
+						window.onXPChanged();
+					end
+				</script>
+			</number_charlevel>
+			<hn name="exp">
+				<script>
+					function onValueChanged()
+						window.onXPChanged();
+					end
+				</script>
+			</hn>
+			<hn name="expneeded">
+				<script>
+					function onValueChanged()
+						window.onXPChanged();
+					end
+				</script>
+			</hn>			
+<!--
+			<frame_char name="sensesframe">
+				<bounds>0,-50,-1,-5</bounds>
+			</frame_char>
+			<string_labeled name="senses">
+				<anchored to="sensesframe" position="insidetop" offset="-15,10" height="20" />
+				<labelres>char_label_senses</labelres>
+				<delaykeyupdate />
+			</string_labeled>
+-->
+			<label_charframetop name="culturetitle">
+				<anchored height="20">
+					<top offset="65" />
+					<left offset="15" />
+					<right anchor="center" offset="-15" />
+				</anchored>
+				<icons>char_culture</icons>
+				<static textres="char_label_culture" />
+			</label_charframetop>
+			<genericcontrol name="cultureleftanchor">
+				<anchored to="culturetitle" position="belowleft" offset="-10,5" />
+				<disabled />
+			</genericcontrol>
+			<genericcontrol name="culturerightanchor">
+				<anchored to="culturetitle" position="belowright" offset="-10,5" />
+				<disabled />
+			</genericcontrol>
+			<linkfield_statich name="culturelink">
+				<anchored to="culturerightanchor" width="20" height="20">
+					<top />
+					<right relation="relative" offset="-2" postoffset="-2" />
+				</anchored>
+				<description field="culture" />
+				<script>
+					function onClickDown()
+						return true;
+					end
+					function onClickRelease()
+						return CharManager.onCultureLinkPressed(window.getDatabaseNode());
+					end
+				</script>
+			</linkfield_statich>
+			<button_iadd_recordtype name="button_culture_add">
+				<anchored to="culturerightanchor">
+					<top />
+					<right relation="relative" offset="-2" postoffset="-2" />
+				</anchored>
+				<recordtype>culture</recordtype>
+			</button_iadd_recordtype>
+			<stringu name="culture">
+				<anchored to="cultureleftanchor">
+					<top />
+					<left relation="relative" offset="5" postoffset="5" />
+					<right parent="culturerightanchor" relation="relative" offset="-5" postoffset="-5" />
+				</anchored>
+				<script>
+					function onValueChanged()
+						window.onCultureChanged();
+					end
+				</script>
+			</stringu>
+
+			<label_charframetop name="speciestitle">
+				<anchored height="20">
+					<top offset="65" />
+					<left anchor="center" offset="15" />
+					<right offset="-15" />
+				</anchored>
+				<icons>char_race</icons>
+				<static textres="char_label_race" />
+			</label_charframetop>
+			<genericcontrol name="speciesleftanchor">
+				<anchored to="speciestitle" position="belowleft" offset="-10,5" />
+				<disabled />
+			</genericcontrol>
+			<genericcontrol name="speciesrightanchor">
+				<anchored to="speciestitle" position="belowright" offset="-10,5" />
+				<disabled />
+			</genericcontrol>
+			<linkfield_statich name="racelink">
+				<anchored to="speciesrightanchor" width="20" height="20">
+					<top />
+					<right relation="relative" offset="-2" postoffset="-2" />
+				</anchored>
+				<description field="race" />
+				<script>
+					function onClickDown()
+						return true;
+					end
+					function onClickRelease()
+						return CharManager.onSpeciesLinkPressed(window.getDatabaseNode());
+					end
+				</script>
+			</linkfield_statich>
+			<button_iadd_recordtype name="button_species_add">
+				<anchored to="speciesrightanchor">
+					<top />
+					<right relation="relative" offset="-2" postoffset="-2" />
+				</anchored>
+				<recordtype>race</recordtype>
+			</button_iadd_recordtype>
+			<stringu name="race">
+				<anchored to="speciesleftanchor">
+					<top />
+					<left relation="relative" offset="5" postoffset="5" />
+					<right parent="speciesrightanchor" relation="relative" offset="-5" postoffset="-5" />
+				</anchored>
+				<script>
+					function onValueChanged()
+						window.onSpeciesChanged();
+					end
+				</script>
+			</stringu>
+		</sheetdata>
+	</windowclass>
+</root>

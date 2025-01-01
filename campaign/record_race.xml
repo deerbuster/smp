@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="reference_race" copy="record_window_tabbed">
+		<tab>
+			<name>notes</name>
+			<resource>tab_main</resource>
+			<class>record_content_text</class>
+			<embed />
+		</tab>
+		<tab merge="add">
+			<name>main</name>
+			<resource>tab_other</resource>
+			<class>reference_race_main</class>
+			<embed />
+		</tab>
+		<script>
+			function onStateChanged()
+				super.onStateChanged();
+			end
+		</script>
+		<sheetdata>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="reference_race_header" copy="record_header" />
+
+	<windowclass name="reference_race_main">
+		<script>
+			function onInit()
+				self.update();
+			end
+			function onVersionChanged()
+				self.update();
+			end
+			function update()
+				local nodeRecord = getDatabaseNode();
+				WindowManager.callSafeControlUpdate(self, "sub_content", bReadOnly);
+			end
+			function onDrop(x, y, draginfo)
+				if WindowManager.getReadOnlyState(getDatabaseNode()) then
+					return true;
+				end
+				if draginfo.isType("shortcut") then
+					local sClass = draginfo.getShortcutData();
+					local nodeSource = draginfo.getDatabaseNode();
+					
+					if sClass == "reference_racialtrait" or sClass == "reference_subracialtrait" then
+						self.addTrait(DB.getValue(nodeSource, "name", ""), DB.getText(nodeSource, "text", ""));
+					end
+					return true;
+				end
+			end
+			function addTrait(sName, sText)
+				local nodeTrait = DB.createChild(DB.getPath(getDatabaseNode(), "traits"));
+				if nodeTrait then
+					DB.setValue(nodeTrait, "name", "string", sName);
+					DB.setValue(nodeTrait, "text", "formattedtext", sText);
+				end
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_top />
+			<header_content_framed_headersimple name="statbonuses_header">
+				<static textres="race_header_statbonuses"/>
+			</header_content_framed_headersimple>
+			<label_content_column name="agility_label">
+				<static textres="race_agility" />
+				<tooltip textres="tooltip_agility" />
+			</label_content_column>
+			<number_content_columnw name="agility" source="traits.statbonuses.agility" />
+			<label_content_column name="constitution_label">
+				<static textres="race_constitution" />
+				<tooltip textres="tooltip_constitution" />
+			</label_content_column>
+			<number_content_columnw name="constitution" source="traits.statbonuses.constitution" />
+			<label_content_column name="memory_label">
+				<static textres="race_memory" />
+				<tooltip textres="tooltip_memory" />
+			</label_content_column>
+			<number_content_columnw name="memory" source="traits.statbonuses.memory" />
+			<label_content_column name="reasoning_label">
+				<static textres="race_reasoning" />
+				<tooltip textres="tooltip_reasoning" />
+			</label_content_column>
+			<number_content_columnw name="reasoning" source="traits.statbonuses.reasoning" />
+			<label_content_column name="selfdiscipline_label">
+				<static textres="race_selfdiscipline" />
+				<tooltip textres="tooltip_selfdiscipline" />
+			</label_content_column>
+			<number_content_columnw name="selfdiscipline" source="traits.statbonuses.selfdiscipline" />
+			<label_content_column name="empathy_label">
+				<static textres="race_empathy" />
+				<tooltip textres="tooltip_empathy" />
+			</label_content_column>
+			<number_content_columnw name="empathy" source="traits.statbonuses.empathy" />
+			<label_content_column name="intuition_label">
+				<static textres="race_intuition" />
+				<tooltip textres="tooltip_intuition" />
+			</label_content_column>
+			<number_content_columnw name="intuition" source="traits.statbonuses.intuition" />
+			<label_content_column name="presence_label">
+				<static textres="race_presence" />
+				<tooltip textres="tooltip_presence" />
+			</label_content_column>
+			<number_content_columnw name="presence" source="traits.statbonuses.presence" />
+			<label_content_column name="quickness_label">
+				<static textres="race_quickness" />
+				<tooltip textres="tooltip_quickness" />
+			</label_content_column>
+			<number_content_columnw name="quickness" source="traits.statbonuses.quickness" />
+			<label_content_column name="strength_label">
+				<static textres="race_strength" />
+				<tooltip textres="tooltip_strength" />
+			</label_content_column>
+			<number_content_columnw name="strength" source="traits.statbonuses.strength" />
+			
+			<header_content_framed_headersimple name="resistancerollmodifiers_header">
+				<static textres="race_header_resistancerollmodifiers"/>
+			</header_content_framed_headersimple>
+			<label_content_column name="poison_label">
+				<static textres="resistanceroll_poison" />
+				<tooltip textres="tooltip_resistanceroll_poison" />
+			</label_content_column>
+			<number_content_columnw name="poison" source="traits.resistancerollmodifiers.poison" />
+			<label_content_column name="disease_label">
+				<static textres="resistanceroll_disease" />
+				<tooltip textres="tooltip_resistanceroll_disease" />
+			</label_content_column>
+			<number_content_columnw name="disease" source="traits.resistancerollmodifiers.disease" />
+			<label_content_column name="fear_label">
+				<static textres="resistanceroll_fear" />
+				<tooltip textres="tooltip_resistanceroll_fear" />
+			</label_content_column>
+			<number_content_columnw name="fear" source="traits.resistancerollmodifiers.fear" />
+			<label_content_column name="psions_label">
+				<static textres="resistanceroll_psions" />
+				<tooltip textres="tooltip_resistanceroll_psions" />
+			</label_content_column>
+			<number_content_columnw name="psions" source="traits.resistancerollmodifiers.psions" />
+
+			<header_content_framed_headersimple name="traits_header">
+				<static textres="race_header_traits"/>
+			</header_content_framed_headersimple>
+			<label_content_column name="bodydevprogression_label">
+				<static textres="bodydevprogression" />
+				<tooltip textres="tooltip_bodydevprogression" />
+			</label_content_column>
+			<string_content_columnw name="bodydevprogression" source="traits.bodydevprogression" />
+			<label_content_column name="mindpointdevprogression_label">
+				<static textres="mindpointdevprogression" />
+				<tooltip textres="tooltip_mindpointdevprogression" />
+			</label_content_column>
+			<string_content_columnw name="mindpointdevprogression" source="traits.mindpointdevprogression" />
+			<label_content_column name="souldeparture_label">
+				<static textres="souldeparture" />
+				<tooltip textres="tooltip_souldeparture" />
+			</label_content_column>
+			<number_content_columnw name="souldeparture" source="traits.souldeparture" />
+			<label_content_column name="recoverymultiplier_label">
+				<static textres="recoverymultiplier" />
+				<tooltip textres="tooltip_recoverymultiplier" />
+			</label_content_column>
+			<number_content_columnw name="recoverymultiplier" source="traits.recoverymultiplier" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="reference_race_main_2014">
+		<margins control="0,0,0,5" />
+		<script>
+			function onInit()
+				self.update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				WindowManager.callSafeControlUpdate(self, "ignoresubrace", bReadOnly);
+				WindowManager.callSafeControlUpdate(self, "list", bReadOnly);
+
+				local bHideOld = (DB.getChildCount(getDatabaseNode(), "subraces") &lt;= 0);
+				WindowManager.callSafeControlUpdate(self, "subraces", bReadOnly, bHideOld);
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_top />
+		</sheetdata>
+	</windowclass>
+</root>

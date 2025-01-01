@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="reference_talent" copy="record_window">
+		<script>
+			function onStateChanged()
+				super.onStateChanged();
+			end
+		</script>
+		<sheetdata>
+            <anchor_content_top />
+
+            <label_content_column name="category_label">
+				<static textres="talent_label_category" />
+			</label_content_column>
+			<string_content_columnh name="category">
+				<delaykeyupdate />
+			</string_content_columnh>
+            <label_content_column name="race_label">
+				<static textres="talent_label_race" />
+			</label_content_column>
+			<string_content_columnh name="race">
+				<delaykeyupdate />
+			</string_content_columnh>
+            <label_content_column name="type_label">
+				<static textres="talent_label_type" />
+			</label_content_column>
+			<string_content_columnh name="type">
+				<delaykeyupdate />
+			</string_content_columnh>
+            <label_content_column name="degree_label">
+				<static textres="talent_label_degree" />
+			</label_content_column>
+			<string_content_columnh name="degree">
+				<delaykeyupdate />
+			</string_content_columnh>
+            <label_content_column name="cost_label">
+				<static textres="talent_label_cost" />
+			</label_content_column>
+			<number_content_columnh name="cost">
+				<delaykeyupdate />
+			</number_content_columnh>
+
+			
+			<line_content_top name="divider" />
+
+			<ft_content_columnh_full name="text" />
+		</sheetdata>
+	</windowclass>
+</root>

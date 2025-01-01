@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet">
+		<frame>charsheet</frame>
+		<sizelimits>
+			<minimum width="525" height="568" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_npc</minimize>
+		<tooltip field="name" />
+		<softclose />
+		<export>character</export>
+		<sheetdata>
+			<sub_charsheet_overview name="overview" />
+
+			<sub_charsheet name="main">
+				<class>charsheet_main</class>
+			</sub_charsheet>
+			<sub_charsheet name="skills">
+				<class>charsheet_skills</class>
+			</sub_charsheet>
+			<sub_charsheet name="inventory">
+				<class>charsheet_inventory</class>
+			</sub_charsheet>
+			<sub_charsheet name="notes">
+				<class>charsheet_notes</class>
+			</sub_charsheet>
+
+			<tabs_charsheet name="tabs">
+				<tab>
+					<tabres>tab_main</tabres>
+					<subwindow>main</subwindow>
+				</tab>
+				<tab>
+					<tabres>tab_skills</tabres>
+					<subwindow>skills</subwindow>
+				</tab>
+				<tab>
+					<tabres>tab_inventory</tabres>
+					<subwindow>inventory</subwindow>
+				</tab>
+				<tab>
+					<tabres>tab_notes</tabres>
+					<subwindow>notes</subwindow>
+				</tab>
+			</tabs_charsheet>
+		
+			<close_charsheet />
+			<resize_charsheet />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charsheet_base">
+		<frame>charsheet</frame>
+		<sizelimits>
+			<minimum width="530" height="570" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_npc</minimize>
+		<tooltip field="name" />
+		<softclose />
+		<export>character</export>
+		<helplinkres>help_record_charsheet</helplinkres>
+		<script>
+			function onInit()
+				WindowTabManager.populate(self);
+			end
+		</script>
+		<sheetdata>
+			<windowmenubar_charsheet name="menubar" />
+			
+			<anchor_content_charsheet_tabbed_top />
+			<anchor_content_charsheet_bottom />
+
+			<sub_content_top name="overview">
+				<class>charsheet_overview</class>
+			</sub_content_top>
+
+			<resize_charsheet />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charsheet_overview">
+		<sheetdata>
+			<genericcontrol name="leftanchor">
+				<anchored position="insidetopleft" offset="0,0" width="0" height="0" />
+				<disabled />
+			</genericcontrol>
+			<genericcontrol name="rightanchor">
+				<anchored position="insidetopright" offset="0,0" width="0" height="0" />
+				<disabled />
+			</genericcontrol>
+
+			<picture_charsheet name="portrait" />
+
+			<button_charactivate_charsheet name="speak" />
+			
+			<frame_char name="overviewframe">
+				<anchored to="rightanchor" height="50">
+					<top />
+					<left parent="leftanchor" relation="relative" />
+					<right relation="relative" />
+				</anchored>
+			</frame_char>
+			<string_labeled name="name">
+				<anchored to="overviewframe" position="insidetopleft" offset="15,10" height="20">
+					<right offset="-15" />
+				</anchored>
+				<labelres>char_label_name</labelres>
+			</string_labeled>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charsheet_overview_base">
+		<sheetdata>
+			<anchor_listitem_left name="leftanchor" />
+			<anchor_listitem_right name="rightanchor" />
+
+			<picture_charsheet name="portrait">
+				<anchored>
+					<top offset="5" />
+				</anchored>
+			</picture_charsheet>
+
+			<frame_char name="overviewframe">
+				<anchored to="rightanchor" height="60">
+					<top />
+					<left parent="leftanchor" relation="relative" />
+					<right relation="relative" />
+				</anchored>
+			</frame_char>
+			<string_labeled name="name">
+				<anchored to="overviewframe" position="insidetop" offset="-15,10" height="30" />
+				<labelres>char_label_name</labelres>
+				<font>charsheet_header</font>
+			</string_labeled>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charsheet_nontabbed_base">
+		<frame>charsheet</frame>
+		<sizelimits>
+			<dynamic />
+		</sizelimits>
+		<sheetdata>
+			<windowmenubar_charsheet name="menubar" />
+			
+			<anchor_content_charsheet_top />
+			<anchor_content_charsheet_bottom />
+
+			<resize_charsheet />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charsheethelper_base">
+		<frame>charsheethelper</frame>
+		<sizelimits>
+			<dynamic />
+		</sizelimits>
+		<windowmenu>
+			<nocustom />
+		</windowmenu>
+		<sheetdata>
+			<windowtitlebar_charsheethelper name="title" />
+			<windowmenubar_charsheethelper name="menubar" />
+			
+			<anchor_content_charsheethelper_top />
+			<anchor_content_charsheethelper_bottom />
+
+			<resize_charsheethelper />
+		</sheetdata>
+	</windowclass>
+</root>
