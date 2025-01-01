@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="reference_trainingpackage" copy="record_window">
+		<script>
+			function onStateChanged()
+				super.onStateChanged();
+			end
+		</script>
+		<sheetdata>
+            <anchor_content_top />
+
+			<ft_content_columnh_full name="text" />
+
+			<label_content_column name="type_label">
+				<static textres="type" />
+				<tooltip textres="tooltip_type" />
+			</label_content_column>
+			<string_content_columnw name="type" source="type" />
+			<label_content_column name="timetoacquire_label">
+				<static textres="timetoacquire" />
+				<tooltip textres="tooltip_timetoacquire" />
+			</label_content_column>
+			<number_content_columnw name="timetoacquire" source="timetoacquire" />
+			<label_content_column name="startingmoney_label">
+				<static textres="startingmoney" />
+				<tooltip textres="tooltip_startingmoney" />
+			</label_content_column>
+			<string_content_columnw name="startingmoney" source="startingmoney" />
+			<label_content_column name="cost_label">
+				<static textres="cost" />
+				<tooltip textres="tooltip_cost" />
+			</label_content_column>
+			<string_content_columnw name="cost" source="cost" />
+
+
+		</sheetdata>
+    </windowclass>
+</root>
